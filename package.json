@@ -14,5 +14,8 @@
     "@rbxts/compiler-types": "^2.2.0-types.0",
     "@rbxts/types": "^1.0.728",
     "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@rbxts/knit": "^0.0.21-alpha.0"
   }
 }
