@@ -1,12 +1,21 @@
-import { makeHello } from "shared/module";
 import { KnitClient as Knit } from "@rbxts/knit";
+import { Component } from "@rbxts/knit"
 
-print(makeHello("main.client.ts"));
+Knit.AddControllers(script.Parent!.FindFirstChild("Controllers") as Folder);
+Component.Auto(script.Parent!.FindFirstChild("Components") as Folder);
+
+Knit.Start()
+    .andThen(() => {
+        print("Clinet Started");
+    })
+    .catch(warn)
+
+
 
 const PointsService = Knit.GetService("PointsService");
 
 function PointsChanged(points: number) {
-	print("My points:", points);
+    print("My points:", points);
 }
 
 // Get points and listen for changes:
@@ -22,10 +31,10 @@ let mostPoints = PointsService.MostPoints.Get();
 
 // Keep MostPoints value updated:
 PointsService.MostPoints.Changed.Connect(newMostPoints => {
-	mostPoints = newMostPoints;
+    mostPoints = newMostPoints;
 });
 
 // Advanced example, using promises to get points:
 PointsService.GetPointsPromise().then(points => {
-	print("Got points:", points);
+    print("Got points:", points);
 });
