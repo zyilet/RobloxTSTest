@@ -13,7 +13,7 @@
 		"experimentalDecorators": true,
 		"forceConsistentCasingInFileNames": true,
 		"moduleDetection": "force",
-		"strict": true,
+		"strict": false,
 		"target": "ESNext",
 		"typeRoots": ["node_modules/@rbxts"],
 
