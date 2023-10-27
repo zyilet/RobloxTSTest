@@ -31,13 +31,16 @@ const AnimationController = Knit.CreateController({
 
     //播放动画
     Play(animId: string) {
-        
+        this.Helper.Play(animId);
     },
+
     Stop(animId: string) {
-
+        this.Helper.Stop(animId);
     },
-    IsPlaying(animId: string) {
 
+    IsPlaying(animId: string) {
+        print(animId)
+        return this.Helper.IsPlaying(animId);
     }
 });
 

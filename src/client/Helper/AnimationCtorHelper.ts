@@ -8,8 +8,9 @@ export class AnimationControllerHelper {
     private _humanoid: Humanoid | undefined = undefined
     private _animator: Animator | undefined = undefined
     private _animate: LocalScript | undefined = undefined
-    private _animaCache = new Map<string, Animation>()
-    private _defaultAnimSlot = new Map<EDefaultAnim, Animation>()
+
+    private _animTrackCache = new Map<string, AnimationTrack>()
+    private _defaultAnimCache = new Map<EDefaultAnim, Animation>()
 
     public constructor() {
 
@@ -28,8 +29,41 @@ export class AnimationControllerHelper {
     //替换默认动画
     public ReplaceDefaultAnim(animType: EDefaultAnim, animId: string) {
 
-        this.GetDefaultAnimation(animType)!.AnimationId = `rbxassetid://${animId}`;
+        this.GetDefaultAnimation(animType)!.AnimationId = this.ConvertId(animId);
     }
+
+    public Play(animId: string) {
+        const anim = new Instance("Animation");
+        anim.AnimationId = this.ConvertId(animId);
+
+        const animTrack = this._animator!.LoadAnimation(anim);
+        this._animTrackCache.set(animId, animTrack);
+        animTrack.Play()
+        print("play" + animId);
+    }
+
+    public Stop(animId: string) {
+        if (!this._animTrackCache.has(animId)) {
+            return;
+        }
+
+        let track = this._animTrackCache.get(animId);
+        track!.Stop();
+    }
+
+    public IsPlaying(animId: string) {
+        print("检查是否存在对象"+animId)
+        if (!this._animTrackCache.has(animId)) {
+            print("不存在")
+            return false;
+        }
+        print("存在")
+
+        let track = this._animTrackCache.get(animId);
+        return track!.IsPlaying;
+    }
+
+
 
     //根据动画类型获取默认动画的Animation对象
     private GetDefaultAnimation(animType: EDefaultAnim) {
@@ -41,5 +75,9 @@ export class AnimationControllerHelper {
         if (animType === EDefaultAnim.Idel1) {
 
         }
+    }
+
+    private ConvertId(animId: string) {
+        return `rbxassetid://${animId}`;
     }
 }
