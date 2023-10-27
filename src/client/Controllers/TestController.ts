@@ -1,4 +1,5 @@
 import { KnitClient as knit } from "@rbxts/knit"
+import { EDefaultAnim } from "shared/EDefaultAnim";
 
 declare global {
     interface KnitControllers {
@@ -14,7 +15,6 @@ const TestController = knit.CreateController({
     },
 
     KnitStart() {
-
         const PointService = knit.GetService("PointsService");
 
         function PointsChanged(points: number) {
@@ -39,3 +39,5 @@ const TestController = knit.CreateController({
         });
     },
 });
+
+export = TestController
